@@ -4,7 +4,7 @@ import { Menu } from "semantic-ui-react";
 export default () =>{
     return (
         <div>
-            <Menu>
+            <Menu style={{ marginTop: "10px" }}>
                 <Menu.Item>
                     Kikstart
                 </Menu.Item>
