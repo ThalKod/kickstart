@@ -7,7 +7,8 @@ import web3 from "../../ethereum/web3";
 class CampaignNew extends React.Component {
     state = {
         minimumContribution: "",
-        error: ""
+        error: "",
+        loading: false
     };
 
     onContributionChange = (e)=>{
@@ -23,6 +24,8 @@ class CampaignNew extends React.Component {
     onFormSubmit = async (e)=>{
         e.preventDefault();
 
+        this.setState({ loading: true, error: "" });
+
         try{
             const accounts = await web3.eth.getAccounts();    
             await factory.methods
@@ -33,6 +36,8 @@ class CampaignNew extends React.Component {
         }catch(err){
             this.setState({ error: err.message });
         }
+
+        this.setState({ loading: false });
     };
 
 
@@ -52,7 +57,7 @@ class CampaignNew extends React.Component {
                         />
                     </Form.Field>
 
-                    <Button primary>Create !</Button>
+                    <Button loading={this.state.loading} primary>Create !</Button>
                 
                     <Message error header="Oops !" content={this.state.error}  /> 
                 </Form>
