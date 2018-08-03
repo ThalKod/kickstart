@@ -3,6 +3,7 @@ import Layout from "../../components/Layout";
 import Campaign from "../../ethereum/campaign";
 import { Card } from "../../node_modules/semantic-ui-react";
 import web3 from "../../ethereum/web3";
+import ContributeForm from "../../components/ContributeForm";
 
 class CampaignShow extends React.Component {
 
@@ -60,8 +61,9 @@ class CampaignShow extends React.Component {
     render(){
         return (
             <Layout>
-                <h3>Campaign Show</h3>
+                <h3>Campaign Details</h3>
                 {this.renderCards()}
+                <ContributeForm />
             </Layout>
         )
     }
