@@ -10,7 +10,9 @@ class RequestNew extends React.Component {
     state = {
         value: "",
         description: "",
-        recipient: ""
+        recipient: "",
+        loading: false,
+        error: ""
     };
 
 
@@ -25,22 +27,26 @@ class RequestNew extends React.Component {
         
         const campaign = Campaign(this.props.address);
         const { description, value, recipient } = this.state;
+        
+        this.setState({ loading: true, error: "" });
 
         try{
             const accounts = await web3.eth.getAccounts();
             await campaign.methods.createRequest(description, web3.utils.toWei(value, "ether"), recipient).send({ from: accounts[0] });
 
-
+            Router.pushRoute(`/campaigns/${this.props.address}/requests`);
         }catch(e){
-            console.log(e);
+            this.setState({ error: e.message });
         };
+
+        this.setState({ loading: false });
     };
 
     render(){
         return(
             <Layout>
                 <h3>Create a Request</h3>
-                <Form onSubmit={this.onSubmit}>
+                <Form onSubmit={this.onSubmit} error={!!this.state.error}>
                     <Form.Field>
                         <label>Description</label>
                         <Input 
@@ -65,7 +71,8 @@ class RequestNew extends React.Component {
                         />
                     </Form.Field>
 
-                    <Button primary>Create</Button>
+                    <Button primary loading={this.state.loading}>Create</Button>
+                    <Message error header="Error" content={this.state.error} />
                 </Form>
             </Layout>
 
