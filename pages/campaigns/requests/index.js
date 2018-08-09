@@ -16,11 +16,23 @@ class RequestIndex extends React.Component{
         const requestsCount = await campaign.methods.getRequestCount().call();
         const approversCount = await campaign.methods.approversCount().call();
 
-        const requests = await Promise.all(
-            Array(requestsCount).fill().map((Element, index)=>{
-                return campaign.methods.requests(index).call();
-            })
-        );
+        async function fetchRequest(index) {
+            const aRequest = await campaign.methods.requests(index).call();
+            requests.push(aRequest);
+        };
+
+        const requests = [];
+
+        for(let i =0; i < requestsCount; i++){
+            await fetchRequest(i);
+        }
+
+        // const requests = await Promise.all(
+        //     // Array(requestsCount).fill().map((Element, index)=>{
+        //     //     console.log(index);
+        //     //     return campaign.methods.requests(index).call();
+        //     // })
+        // );
 
         return { address, requests, requestsCount, approversCount };
     }
