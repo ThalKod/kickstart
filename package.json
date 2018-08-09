@@ -1,11 +1,12 @@
 {
   "name": "kickstart",
   "version": "1.0.0",
-  "description": "Kickstarter clone with Eth smart contract",
+  "description": "Basic Kickstarter clone with Eth smart contract",
   "main": "app.js",
   "scripts": {
     "test": "mocha",
-    "dev": "node server.js"
+    "dev": "node server.js",
+    "start": "node server.js"
   },
   "author": "Thal Marcelin",
   "license": "MIT",
