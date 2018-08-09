@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "../../../components/Layout";
 import { Link }  from "../../../routes";
-import { Button } from "semantic-ui-react";
+import { Button, Table } from "semantic-ui-react";
 import Campaign from "../../../ethereum/campaign";
 
 class RequestIndex extends React.Component{
@@ -24,6 +24,8 @@ class RequestIndex extends React.Component{
     }
 
     render(){
+        const { Header, Row, HeaderCell, Body } = Table;
+
         return(
             <Layout>
                 <h3>Request List</h3>
@@ -32,6 +34,19 @@ class RequestIndex extends React.Component{
                         <Button primary>Add Requests</Button>
                     </a>
                 </Link>
+                <Table>
+                    <Header>
+                        <Row>
+                            <HeaderCell>ID</HeaderCell>
+                            <HeaderCell>Description</HeaderCell>
+                            <HeaderCell>Amount</HeaderCell>
+                            <HeaderCell>Recipient</HeaderCell>
+                            <HeaderCell>ApprovalCount</HeaderCell>
+                            <HeaderCell>Approve</HeaderCell>
+                            <HeaderCell>Finalize</HeaderCell>
+                        </Row>
+                    </Header>
+                </Table>
             </Layout>
         );
     }
